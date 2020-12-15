@@ -1,14 +1,17 @@
 const ADD_PHOTOS = "ADD_PHOTOS"; // Добавить фотографии в массив ""
 const SET_UNSPLASH = "SET_UNSPLASH"; // Добавить объект "unsplash" в "state.unsplash"
 const SET_CARD = "SET_CARD"; // Добавить объект "card" в "state.card"
-const DELETE_CARD = "DELETE_CARD"; // Очистить объект "" 
+const DELETE_CARD = "DELETE_CARD"; // Очистить объект ""
 const SET_UNLIKE = "SET_UNLIKE"; // Поставить лайк
-const SET_LIKE = "SET_LIKE"; // Снять лайк
+const SET_LIKE = "SET_LIKE"; // Снять лайк 
+const SET_UNLIKE_CARD = "SET_UNLIKE_CARD"; // Поставить лайк
+const SET_LIKE_CARD = "SET_LIKE_CARD"; // Снять лайк
 const SET_FETCH_ERROR = "SET_FETCH_ERROR"; // Поменять флаг ошибки 
 
 const defaultState = {
   unsplash: {},
   arrayPhotos: [],
+  searchPhotos: [],
   card: {},
   isFetchError: false,
 };
@@ -43,10 +46,29 @@ export default function photosReducer(state = defaultState, action) {
       return {
         ...state,
         card: action.payload
-
       }
 
-    case SET_LIKE:
+      case SET_LIKE:
+      state.arrayPhotos[action.payload.index].likes = action.payload.likes;
+      state.arrayPhotos[action.payload.index].liked_by_user = action.payload.liked_by_user;
+      return {
+        ...state,
+        arrayPhotos: [
+          ...state.arrayPhotos,
+      ]
+      }
+
+    case SET_UNLIKE:
+      state.arrayPhotos[action.payload.index].likes = action.payload.likes;
+      state.arrayPhotos[action.payload.index].liked_by_user = action.payload.liked_by_user;
+      return {
+        ...state,
+        arrayPhotos: [
+          ...state.arrayPhotos,
+        ]
+      }
+
+    case SET_LIKE_CARD:
       state.card.likes = action.payload.likes;
       state.card.liked_by_user = action.payload.liked_by_user;
       return {
@@ -56,7 +78,7 @@ export default function photosReducer(state = defaultState, action) {
         }
       }
 
-    case SET_UNLIKE:
+    case SET_UNLIKE_CARD:
       state.card.likes = action.payload.likes;
       state.card.liked_by_user = action.payload.liked_by_user;
       return {
@@ -99,6 +121,14 @@ export const setLike = (obj) => {
 
 export const setUnLike = (obj) => {
   return ({ type: SET_UNLIKE, payload: obj })
+};
+
+export const setLikeCard = (obj) => {
+  return ({ type: SET_LIKE_CARD, payload: obj })
+};
+
+export const setUnLikeCard = (obj) => {
+  return ({ type: SET_UNLIKE_CARD, payload: obj })
 };
 
 export const setFetchError = (bool) => {
