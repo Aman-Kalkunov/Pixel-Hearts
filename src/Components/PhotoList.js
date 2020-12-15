@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getPhotos, getUnsplash } from '../actions/index.js';
 import Loader from './Loader.js';
 import Photo from './Photo.js';
 
 let PhotoList = (props) => {
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const unsplash = props.unsplash;
   const photos = useSelector(state => state.photos.arrayPhotos);
@@ -18,9 +19,10 @@ let PhotoList = (props) => {
       fetchPhotos();
       dispatch(getUnsplash(unsplash))
     }
+    history.push("/oauth");
   }, [])
 
-  //функция вызывает ation, который добавит новыефотографии в массив state.arrayPhotos
+  //функция вызывает ation, который добавит новые фотографии в массив state.arrayPhotos
   const fetchPhotos = () => {
     dispatch(getPhotos(unsplash));
   }

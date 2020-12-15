@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { getLike, getUnLike } from '../actions';
+import { getLikeCard, getUnLikeCard } from '../actions';
 
 let Like = () => {
   const dispatch = useDispatch()
@@ -19,8 +19,8 @@ let Like = () => {
   // вызывает action лайка или дизлайка
   const clickLikeButton = () => {
     isLike ?
-      dispatch(getUnLike(unsplash, id)) :
-      dispatch(getLike(unsplash, id));
+      dispatch(getUnLikeCard(unsplash, id)) :
+      dispatch(getLikeCard(unsplash, id));
   }
 
   return (

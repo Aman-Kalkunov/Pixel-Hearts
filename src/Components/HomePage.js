@@ -19,7 +19,7 @@ let HomePage = () => {
     "write_likes",
   ]);
   const authLocation = () => { window.location.assign(authenticationUrl) }
-  
+
   //Отправляем запрос по клику
   const buttonLogClick = () => {
     authLocation();
@@ -29,8 +29,9 @@ let HomePage = () => {
     const img = randomPhoto.urls.regular;
     return (
       <div className="container">
-        <div className="home-page" style={{ backgroundImage: 'url(' + img + ')' }}>
-          <h2 className="home-page__title">Welcome to our application!</h2>
+        <div className="home-page" style={{
+          backgroundImage: 'url(' + img + ')'
+        }}>
           <button onClick={buttonLogClick} className="button" >Log In</button>
         </div>
       </div>

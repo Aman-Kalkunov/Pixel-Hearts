@@ -19,7 +19,6 @@ if (!token) {
       .then(json => {
         unsplash.auth.setBearerToken(json.access_token);
         localStorage.setItem('token', JSON.stringify(json.access_token));
-        window.location.search = ""
       });
   }
   // если token обнаружен
