@@ -1,17 +1,17 @@
-@import "../node_modules/open-sans-fonts/open-sans.css";
+@import "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans";
-  font-style: italic;
-  font-weight: 500;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
 }
 
 body {
   background-color: white;
-  min-width: 576px;
+  min-width: 375px;
 }
 
 a {
@@ -24,9 +24,7 @@ a {
 .button {
   width: 20%;
   height: 40px;
-  border-radius: 20px;
-  font-style: italic;
-  font-weight: 500;
+  border-radius: 5px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -60,20 +58,19 @@ a {
 /* header */
 
 .header {
-  height: 10vh;
+  display: flex;
+  height: 70px;
   background-color: rgb(233, 239, 240, 0.637);
-  padding: 1%;
-}
-
-.header__title {
-  font-style: normal;
+  padding: 15px 5px;
 }
 
 .container {
+  width: 100%;
   max-width: 1024px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 /* home-page */
@@ -82,15 +79,13 @@ a {
   display: flex;
   width: 100%;
   height: 90vh;
-  padding-top: 20%;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
   background: center center / cover no-repeat fixed;
 }
 
 .home-page__title {
-  margin-bottom: 20px;
-  font-weight: 600;
+  font-size: 25px;
 }
 
 .main {
@@ -125,10 +120,6 @@ a {
   margin-right: 10px;
 }
 
-.user__name {
-  font-style: normal;
-}
-
 .photo-list__img {
   width: 100%;
   height: 100%;
@@ -147,13 +138,13 @@ a {
 /* card */
 
 .card {
-  height: 90vh;
   padding: 2%;
 }
 
 .card__img {
   width: 100%;
-  object-fit: cover;
+  max-height: 75vh;
+  object-fit: contain;
   background-color: white;
 }
 
@@ -190,7 +181,6 @@ a {
 }
 
 .press {
-  animation: size 0.4s;
   color: #e73a3a;
 }
 
@@ -203,19 +193,6 @@ a {
   }
   100% {
     color: transparent;
-  }
-}
-
-@keyframes size {
-  0% {
-    padding: 10px 12px 8px;
-  }
-  50% {
-    padding: 14px 16px 12px;
-    margin-top: -4px;
-  }
-  100% {
-    padding: 10px 12px 8px;
   }
 }
 
@@ -279,26 +256,39 @@ a {
 }
 
 @media (max-width: 768px) {
+  .button {
+    width: 33%;
+  }
   .header {
-    padding: 2% 1% 1%;
+    height: 60px;
   }
   .header__title {
     font-size: 25px;
   }
-
+  .photo-list {
+    padding-top: 5%;
+  }
   .photo-list__cell {
     width: 100%;
+    margin-bottom: 20px;
   }
-
   .photo-list__img {
-    max-height: 375px;
-    object-fit: contain;
+    height: auto;
+    max-height: 80vh;
   }
 }
-@media (max-width: 575px) {
-  .home-page {
-    position: fixed;
-    height: 100%;
-    min-width: 575px;
+
+@media (max-width: 576px) {
+  .header__title {
+    font-size: 20px;
+  }
+  .photo-list__cell {
+    padding-top: 3%;
+  }
+}
+
+@media (max-width: 375px) {
+  .header__title {
+    font-size: 18px;
   }
 }
