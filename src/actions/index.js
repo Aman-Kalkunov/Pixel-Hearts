@@ -12,61 +12,49 @@ import {
 } from '../reduсers/photosReducer';
 
 //Получение случайного фото для загрузки на главную страницу
-export const getRandomPhoto = async (unsplash, setRandomPhoto) => {
-  const response = await
-    unsplash.photos.getRandomPhoto()
-      .then(toJson)
-      .then(json => {
-        return json
-      });
-  setRandomPhoto(response)
+export const getRandomPhoto = (unsplash, setRandomPhoto) => {
+  unsplash.photos.getRandomPhoto()
+    .then(toJson)
+    .then(json => {
+      setRandomPhoto(json)
+    })
 }
 
 //Получение объекта "Unsplash" для загрузки в "state"
 export const getUnsplash = (unsplash) => {
-  return async (dispatch) => {
-    await unsplash;
+  return (dispatch) => {
     dispatch(setUnsplash(unsplash))
   }
 }
 
 //Получение фотографий для загрузки в массив фотографий "state.arrayPhotos"
 export const getPhotos = (unsplash) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.listPhotos(counter(), 9, "latest") //счетчик дляобновления страницы
-          .then(toJson)
-          .then(json => {
-            return json;
-          })
-      dispatch(addPhotos(response))
-    } catch (e) {
-      dispatch(setFetchError(true)) //При возникновении ошибки меняем флаг ошибки
-      console.log(e)                //выводим сообщение в консоль 
-      setTimeout(() => {
-        dispatch(setFetchError(false)) //убираем сообщение через три секунды
-      }, 3000)
+      unsplash.photos.listPhotos(counter(), 9, "latest") //счетчик дляобновления страницы
+        .then(toJson)
+        .then(json => {
+          dispatch(addPhotos(json));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
 }
 
 //Получение объекта одной фотографии по "id" для загрузки в "state.card"
 export const getOnePhoto = (unsplash, photoId) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.getPhoto(photoId)
-          .then(toJson)
-          .then(json => {
-            return json;
-          })
-      dispatch(setCard(response))
-    } catch (e) {
-      dispatch(setFetchError(true))
-      setTimeout(() => {
-        dispatch(setFetchError(false))
-      }, 3000)
+      unsplash.photos.getPhoto(photoId)
+        .then(toJson)
+        .then(json => {
+          dispatch(setCard(json));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
 }
@@ -74,33 +62,27 @@ export const getOnePhoto = (unsplash, photoId) => {
 //Очищаем "state.card", передавая пустой массив
 export const deletePhoto = () => {
   return (dispatch) => {
-    const response = {};
-    dispatch(deleteCard(response))
+    dispatch(deleteCard({}))
   }
 }
 
 //Отправляем запрос на "like",
 //возвращаем количество лайков и значение "liked_by_user"
 export const getLikeCard = (unsplash, photoId) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.likePhoto(photoId)
-          .then(toJson)
-          .then(json => {
-            const info = {
-              liked_by_user: json.photo.liked_by_user,
-              likes: json.photo.likes,
-            }
-            return info;
-          })
-      dispatch(setLikeCard(response))
-    } catch (e) {
-      dispatch(setFetchError(true))
-      console.log(e)
-      setTimeout(() => {
-        dispatch(setFetchError(false))
-      }, 3000)
+      unsplash.photos.likePhoto(photoId)
+        .then(toJson)
+        .then(json => {
+          const info = {
+            liked_by_user: json.photo.liked_by_user,
+            likes: json.photo.likes,
+          }
+          dispatch(setLikeCard(info));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
 }
@@ -108,26 +90,21 @@ export const getLikeCard = (unsplash, photoId) => {
 //Отправляем запрос на "unlike",
 //возвращаем количество лайков и значение "liked_by_user"
 export const getUnLike = (unsplash, photoId, index) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.unlikePhoto(photoId)
-          .then(toJson)
-          .then(json => {
-            const info = {
-              index,
-              liked_by_user: json.photo.liked_by_user,
-              likes: json.photo.likes,
-            }
-            return info;
-          })
-      dispatch(setUnLike(response))
-    } catch (e) {
-      dispatch(setFetchError(true))
-      console.log(e)
-      setTimeout(() => {
-        dispatch(setFetchError(false))
-      }, 3000)
+      unsplash.photos.unlikePhoto(photoId)
+        .then(toJson)
+        .then(json => {
+          const info = {
+            index,
+            liked_by_user: json.photo.liked_by_user,
+            likes: json.photo.likes,
+          }
+          dispatch(setUnLike(info));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
 }
@@ -135,26 +112,21 @@ export const getUnLike = (unsplash, photoId, index) => {
 //Отправляем запрос на "like",
 //возвращаем количество лайков и значение "liked_by_user"
 export const getLike = (unsplash, photoId, index) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.likePhoto(photoId)
-          .then(toJson)
-          .then(json => {
-            const info = {
-              index,
-              liked_by_user: json.photo.liked_by_user,
-              likes: json.photo.likes,
-            }
-            return info;
-          })
-      dispatch(setLike(response))
-    } catch (e) {
-      dispatch(setFetchError(true))
-      console.log(e)
-      setTimeout(() => {
-        dispatch(setFetchError(false))
-      }, 3000)
+      unsplash.photos.likePhoto(photoId)
+        .then(toJson)
+        .then(json => {
+          const info = {
+            index,
+            liked_by_user: json.photo.liked_by_user,
+            likes: json.photo.likes,
+          }
+          dispatch(setLike(info));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
 }
@@ -162,27 +134,30 @@ export const getLike = (unsplash, photoId, index) => {
 //Отправляем запрос на "unlike",
 //возвращаем количество лайков и значение "liked_by_user"
 export const getUnLikeCard = (unsplash, photoId) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const response = await
-        unsplash.photos.unlikePhoto(photoId)
-          .then(toJson)
-          .then(json => {
-            const info = {
-              liked_by_user: json.photo.liked_by_user,
-              likes: json.photo.likes,
-            }
-            return info;
-          })
-      dispatch(setUnLikeCard(response))
-    } catch (e) {
-      dispatch(setFetchError(true))
-      console.log(e)
-      setTimeout(() => {
-        dispatch(setFetchError(false))
-      }, 3000)
+      unsplash.photos.unlikePhoto(photoId)
+        .then(toJson)
+        .then(json => {
+          const info = {
+            liked_by_user: json.photo.liked_by_user,
+            likes: json.photo.likes,
+          }
+          dispatch(setUnLikeCard(info));
+        })
+        .catch(error => setError(error, dispatch))
+    } catch (error) {
+      setError(error, dispatch)
     }
   }
+}
+
+function setError(error, dispatch) {
+  dispatch(setFetchError(true))
+  console.log(error.message)
+  setTimeout(() => {
+    dispatch(setFetchError(false))
+  }, 3000)
 }
 
 // Функция счетчика для обновления номера загружаемой страницы
