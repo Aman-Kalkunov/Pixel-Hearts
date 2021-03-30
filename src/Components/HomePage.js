@@ -3,7 +3,7 @@ import { unsplash } from '../unsplash/unsplash';
 import { getRandomPhoto } from '../actions';
 import Loader from './Loader';
 
-let HomePage = () => {
+const HomePage = () => {
 
   // Удаляем token из LocalStorage чтобы избежать ошибки при авторизации
   localStorage.removeItem("token");

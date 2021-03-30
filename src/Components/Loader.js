@@ -1,7 +1,6 @@
 import React from 'react';
 
-let Loader = () => {
-
+const Loader = () => {
   return (
     <div className="lds-dual-ring"></div>
   )

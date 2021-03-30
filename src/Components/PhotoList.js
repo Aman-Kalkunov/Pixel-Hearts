@@ -6,7 +6,7 @@ import { getPhotos, getUnsplash } from '../actions/index.js';
 import Loader from './Loader.js';
 import Photo from './Photo.js';
 
-let PhotoList = (props) => {
+const PhotoList = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const unsplash = props.unsplash;

@@ -27,7 +27,7 @@ if (!token) {
   unsplash.auth.setBearerToken(token);
 }
 
-let AuthPage = () => {  
+const AuthPage = () => {
 
   const dispatch = useDispatch();
   const isFetchError = useSelector(state => state.photos.isFetchError);

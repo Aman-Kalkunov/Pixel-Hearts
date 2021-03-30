@@ -5,7 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { getLike, getUnLike } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-let Photo = (props) => {
+const Photo = (props) => {
   const dispatch = useDispatch();
 
   const element = <FontAwesomeIcon icon={faHeart} />

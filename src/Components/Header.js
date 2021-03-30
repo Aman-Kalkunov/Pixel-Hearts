@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-let Header = () => {
+const Header = () => {
   const history = useHistory();
   const location = useLocation();
 
@@ -15,11 +15,11 @@ let Header = () => {
     history.push("/");
   }
 
-const buttonToAuthPageClick = () => {
-  if (isCardPage) {
-    history.push("/oauth");
-  };
-}
+  const buttonToAuthPageClick = () => {
+    if (isCardPage) {
+      history.push("/oauth");
+    };
+  }
 
   const buttonBackClick = () => {
     history.goBack();

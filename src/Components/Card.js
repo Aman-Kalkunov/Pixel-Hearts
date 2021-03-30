@@ -5,7 +5,7 @@ import { getOnePhoto } from '../actions/index.js';
 import Like from './Like.js';
 import Loader from './Loader.js';
 
-let Card = () => {
+const Card = () => {
   const dispatch = useDispatch();
   const id = useParams();
 

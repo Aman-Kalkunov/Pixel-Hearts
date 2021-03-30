@@ -12,7 +12,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-let App = () => {
+const App = () => {
   return (
     <Router>
       <Header />

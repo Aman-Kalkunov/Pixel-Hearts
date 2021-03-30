@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { getLikeCard, getUnLikeCard } from '../actions';
 
-let Like = () => {
+const Like = () => {
   const dispatch = useDispatch()
 
   const element = <FontAwesomeIcon icon={faHeart} />
